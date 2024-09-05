@@ -709,7 +709,7 @@ function Get-ZigTargets
   param(
 
   )
-  (zig targets | ConvertFrom-Json).libc
+  (zig targets | ConvertFrom-Json).libc # TODO: libc 不等于 target, fix it
 }
 
 Register-ArgumentCompleter -Native -CommandName "zig" -ScriptBlock {
@@ -938,4 +938,24 @@ Register-ArgumentCompleter -Native -CommandName "openssl" -ScriptBlock {
   {
     return ConvertTo-CompletionResult -Source (Get-OpensslOptions -Command $command) -Filter $wordToCmp
   }
+}
+
+
+# ------ Just --------------------------
+
+function Get-JustCommands
+{
+  param(
+  )
+
+  $help_string = just --list | Out-String
+  Get-Options -HelpString $help_string `
+    -OptionLinePattern "^\s{4}(\w[\w\-]+).+$"
+
+}
+
+Register-ArgumentCompleter -Native -CommandName "just" -ScriptBlock {
+  param($wordToCmp, $ast, $cursorPos)
+
+  return ConvertTo-CompletionResult -Source (Get-JustCommands) -Filter $wordToCmp
 }

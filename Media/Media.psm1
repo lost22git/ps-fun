@@ -330,7 +330,10 @@ function Play-List
     [int]$Columns = 2,
     # Row count
     [Parameter()]
-    [int]$Rows = 2
+    [int]$Rows = 2,
+    # http proxy
+    [Parameter()]
+    [string]$Proxy=''
   )
   
   begin
@@ -381,7 +384,7 @@ function Play-List
 
     # play them
     $play_args | ForEach-Object {
-      play -Uri $_.uri -Geometry $_.geometry -Volume 0
+      play -Uri $_.uri -Geometry $_.geometry -Volume 0 -Proxy $Proxy
     }
   }
 }

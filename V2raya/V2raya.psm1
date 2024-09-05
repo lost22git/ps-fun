@@ -251,7 +251,7 @@ function Va-Connect
   {
     $to_connect_list = if($server_list.Count -le 0)
     {
-      (Va-Ping -ApiToken $ApiToken | Where-Object sortBy -lt 2000 | Select-Object -First 3)
+      (Va-Ping -ApiToken $ApiToken | Where-Object sortBy -lt 2000 | Select-Object -First 2)
     } else
     {
       $server_list      
