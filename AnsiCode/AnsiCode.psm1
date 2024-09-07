@@ -202,6 +202,31 @@ function Clear-Line
   "`e[2K"
 }
 
+# 光标样式
+enum CursorStyle
+{
+  block_blink = 1
+  block = 2
+  underline_blink = 3
+  underline = 4
+  bar_blink = 5
+  bar = 6
+}
+
+<#
+  .SYNOPSIS
+  变更光标样式
+#>
+function Set-CursorStyle
+{
+  param (
+    # 样式
+    [Parameter(Mandatory)]
+    [CursorStyle]$Style
+  )
+  
+  Write-Output "`e[$([int]$Style) q"
+}
 
 
 # SGR (Select Graphic Rendition)
@@ -462,3 +487,5 @@ function Add-AnsiStyle
     throw "ArgumentTypeError: Text($Text) is not a type in (string or AnsiText or AnsiTextList)"
   }
 }
+
+
